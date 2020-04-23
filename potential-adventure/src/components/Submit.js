@@ -1,38 +1,102 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function Submit() {
+  const [name, setName] = useState('');
+  const [title, setTitle] = useState('');
+  const [openDate, setOpenDate] = useState('');
+  const [closeDate, setCloseDate] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [addressState, setAddressState] = useState('');
+  const [zip, setZip] = useState('');
+  const [pressRelease, setPressRelease] = useState('');
+
+  const handleSubmit = () => {
+    console.log(name);
+  };
+
   return (
     <div>
       <form>
-        <label for="fname">First Name</label>
-        <input type="text" name="fname" id="fname"/>
+        <label htmlFor="name">Full Name</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
 
-        <label for="lname">Last Name</label>
-        <input type="text" name="lname" id="lname"/>
+        <label htmlFor="title">Exhibition Title</label>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
 
-        <label for="title">Exhibition Title</label>
-        <input type="text" name="title" id="title"/>
+        <label htmlFor="opening-date">Opening Date</label>
+        <input
+          type="text"
+          name="opening-date"
+          id="opening-date"
+          value={openDate}
+          onChange={(e) => setOpenDate(e.target.value)}
+        />
 
-        <label for="opening-date">Opening Date</label>
-        <input type="date" name="opening-date" id="opening-date"/>
+        <label htmlFor="closing-date">Closing-date</label>
+        <input
+          type="text"
+          name="closing-date"
+          id="closing-date"
+          value={closeDate}
+          onChange={(e) => setCloseDate(e.target.value)}
+        />
 
-        <label for="closing-date">Closing-date</label>
-        <input type="date" name="closing-date" id="closing-date"/>
+        <label htmlFor="address">Address</label>
+        <input
+          type="text"
+          name="address"
+          id="address"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+        />
 
-        <label for="address">Address</label>
-        <input type="text" name="address" id="address"/>
+        <label htmlFor="city">City</label>
+        <input
+          type="text"
+          name="city"
+          id="city"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+        />
 
-        <label for="city">City</label>
-        <input type="text" name="city" id="city"/>
+        <label htmlFor="state">State</label>
+        <input
+          type="text"
+          name="state"
+          id="state"
+          value={addressState}
+          onChange={(e) => setAddressState(e.target.value)}
+        />
 
-        <label for="state">State</label>
-        <input type="text" name="state" id="state"/>
+        <label htmlFor="zip">Zip Code</label>
+        <input
+          type="text"
+          name="zip"
+          id="zip"
+          value={zip}
+          onChange={(e) => setZip(e.target.value)}
+        />
 
-        <label for="zip">Zip Code</label>
-        <input type="text" name="zip" id="zip"/>
-
-        <label for="pr">Press Release</label>
-        <textarea id="pr"/>
+        <label htmlFor="pr">Press Release</label>
+        <textarea
+          id="pr"
+          value={pressRelease}
+          onChange={(e) => setPressRelease(e.target.value)}
+        />
+        <input type="submit" value="submit" onSubmit={handleSubmit} />
       </form>
     </div>
   );
