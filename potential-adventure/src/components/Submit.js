@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import * as firebase from 'firebase/app';
+import 'firebase/storage';
+import firebaseConfig from '../../src/firebase.js';
+
+firebase.initializeApp(firebaseConfig);
 
 function Submit() {
   const [name, setName] = useState('');
@@ -12,6 +17,25 @@ function Submit() {
   const [addressState, setAddressState] = useState('');
   const [zip, setZip] = useState('');
   const [pressRelease, setPressRelease] = useState('');
+  const [selectedImage, setSelectedImage] = useState(undefined);
+  const [imgUrl, setImgUrl] = useState('');
+
+  useEffect(() => {
+    const handleUploadImage = () => {
+      const storageRef = firebase.storage().ref();
+      const fileName = selectedImage.name;
+      const imageRef = storageRef.child(`images/${fileName}`);
+      imageRef.put(selectedImage).then((snapshot) => {
+        if (snapshot.state === 'success') {
+          snapshot.ref.getDownloadURL().then((url) => setImgUrl(url));
+          setSelectedImage(undefined);
+        }
+      });
+    };
+    if (selectedImage !== undefined) {
+      handleUploadImage();
+    }
+  }, [selectedImage, imgUrl]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,11 +55,22 @@ function Submit() {
       state: addressState,
       zip,
       pressRelease,
-      imageUrl: 'text',
+      imageUrl: imgUrl,
     };
     console.log('fired');
     axios
       .post('http://localhost:3000/exhibitions', data, config)
+      .then(() => {
+        setName('');
+        setTitle('');
+        setOpening('');
+        setClosing('');
+        setVenue('');
+        setAddress('');
+        setCity('');
+        setPressRelease('');
+        setImgUrl('');
+      })
       .catch((err) => console.error(err));
   };
 
@@ -121,6 +156,14 @@ function Submit() {
           id="zip"
           value={zip}
           onChange={(e) => setZip(e.target.value)}
+        />
+
+        <label htmlFor="upload">Upload Image</label>
+        <input
+          type="file"
+          name="upload"
+          id="upload"
+          onChange={(e) => setSelectedImage(e.target.files[0])}
         />
 
         <label htmlFor="pr">Press Release</label>
