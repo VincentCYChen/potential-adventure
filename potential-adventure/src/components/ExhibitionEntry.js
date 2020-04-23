@@ -1,17 +1,18 @@
-import React from 'react'
+import React from 'react';
 
-function ExhibitionEntry() {
+function ExhibitionEntry({ exhibition }) {
   return (
     <div>
-      <p>Untitled</p>
-      <p>Through Friday, May 1, 2020</p>
-      <p>Venue</p>
-      <p>Example Gallery</p>
-      <p>Expample Address</p>
-      <div className="images"/>
-      <p>Long Long Press Release</p>
+      <p>{exhibition.title}</p>
+      <p>Through {exhibition.closing}</p>
+      <p>{exhibition.venue}</p>
+      <p>
+        {exhibition.address}, {exhibition.city}, {exhibition.state},{' '}
+        {exhibition.zip}
+      </p>
+      <p>{exhibition.pressRelease}</p>
     </div>
-  )
+  );
 }
 
 export default ExhibitionEntry;
