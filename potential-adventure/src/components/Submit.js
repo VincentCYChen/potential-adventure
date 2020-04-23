@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function Submit() {
   const [name, setName] = useState('');
   const [title, setTitle] = useState('');
-  const [openDate, setOpenDate] = useState('');
-  const [closeDate, setCloseDate] = useState('');
+  const [opening, setOpening] = useState('');
+  const [closing, setClosing] = useState('');
   const [venue, setVenue] = useState('');
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
@@ -12,8 +13,30 @@ function Submit() {
   const [zip, setZip] = useState('');
   const [pressRelease, setPressRelease] = useState('');
 
-  const handleSubmit = () => {
-    console.log(name);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const data = {
+      name,
+      title,
+      opening,
+      closing,
+      venue,
+      address,
+      city,
+      state: addressState,
+      zip,
+      pressRelease,
+      imageUrl: 'text',
+    };
+    console.log('fired');
+    axios
+      .post('http://localhost:3000/exhibitions', data, config)
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -42,8 +65,8 @@ function Submit() {
           type="text"
           name="opening-date"
           id="opening-date"
-          value={openDate}
-          onChange={(e) => setOpenDate(e.target.value)}
+          value={opening}
+          onChange={(e) => setOpening(e.target.value)}
         />
 
         <label htmlFor="closing-date">Closing-date</label>
@@ -51,8 +74,8 @@ function Submit() {
           type="text"
           name="closing-date"
           id="closing-date"
-          value={closeDate}
-          onChange={(e) => setCloseDate(e.target.value)}
+          value={closing}
+          onChange={(e) => setClosing(e.target.value)}
         />
 
         <label htmlFor="venue">Venue</label>
@@ -106,7 +129,7 @@ function Submit() {
           value={pressRelease}
           onChange={(e) => setPressRelease(e.target.value)}
         />
-        <input type="submit" value="submit" onSubmit={handleSubmit} />
+        <input type="submit" value="submit" onClick={(e) => handleSubmit(e)} />
       </form>
     </div>
   );
