@@ -1,9 +1,13 @@
-import React from 'react'
+import React from 'react';
+import ExhibitionEntry from './ExhibitionEntry'
 
 function Exhibitions() {
   return (
-    <div><p>Wassup world</p></div>
-  )
+    <div>
+      <p>Current Exhibitions</p>
+      <ExhibitionEntry />
+    </div>
+  );
 }
 
 export default Exhibitions;
