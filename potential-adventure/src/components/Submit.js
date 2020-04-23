@@ -5,6 +5,7 @@ function Submit() {
   const [title, setTitle] = useState('');
   const [openDate, setOpenDate] = useState('');
   const [closeDate, setCloseDate] = useState('');
+  const [venue, setVenue] = useState('');
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [addressState, setAddressState] = useState('');
@@ -52,6 +53,15 @@ function Submit() {
           id="closing-date"
           value={closeDate}
           onChange={(e) => setCloseDate(e.target.value)}
+        />
+
+        <label htmlFor="venue">Venue</label>
+        <input
+          type="text"
+          name="venue"
+          id="venue"
+          value={venue}
+          onChange={(e) => setVenue(e.target.value)}
         />
 
         <label htmlFor="address">Address</label>
